@@ -1,0 +1,104 @@
+syntax = "proto2";
+
+
+message UserRelation {
+  enum Relation {
+    FOLLOW = 1;
+    FRIEND = 2;
+    NEIBOR = 5;
+  }
+
+  optional int64 id = 1;
+  optional int64 src = 2;
+  optional int64 dst = 3;
+  optional int32 rel = 4;
+}
+
+message Community {
+
+  enum Category {
+    SOCIAL = 1;
+    LOCATION = 2;
+  }
+
+  optional int64 id = 1;
+  optional int32 category = 2;
+  repeated int64 leaders = 3;
+  repeated int64 members = 4;
+}
+
+message UserActivity {
+  optional int64 id = 1;
+  optional int32 fans = 2;
+  optional int32 follows = 3;
+  optional int32 likes = 4;
+  optional int32 comments = 5;
+  optional int32 photos = 6;
+  optional int32 live_days_all = 7;
+  optional int32 live_days_month = 8;
+  optional int32 live_days_week = 9;
+  optional int64 last_login_time = 10;
+}
+
+message Location {
+  enum LocationTag {
+    OTHER = 0;
+    HOME = 1;
+    COMPANY = 2;
+    SCHOOL = 3;
+  }
+
+  optional int32 lat = 1;
+  optional int32 lng = 2;
+  optional int32 tag = 3;
+  optional float weight = 4;
+}
+
+enum UserLevel {
+  LOW = 1;
+  NORMAL = 3;
+  HIGH = 5;
+}
+
+message UserProfile {
+  message BasicInfo {
+    optional int64 id = 1;
+    optional bytes name = 2;
+    optional int32 age = 3;
+    optional int32 gender = 4;
+    optional int64 register_time = 5;
+    optional bytes avatar = 6;
+    optional int32 level = 7;
+    optional int32 num_fans = 8;
+    optional int32 num_follows = 9;
+    optional int32 num_friends = 10;
+    optional int32 country_code = 11;
+    optional int32 city_code = 12;
+  }
+
+  optional int64 id = 1;
+  optional int64 version = 2;
+  optional BasicInfo basic = 3; 
+  repeated int64 follows = 4;
+  repeated int64 friends = 5;
+  repeated int64 communities = 6;
+  optional UserActivity activities = 7;
+  repeated Location locations = 8;
+  repeated int64 freq_ip_list = 9;
+  repeated int64 freq_wifi_list = 10;
+}
+
+message RecoUser {
+  optional uint64 user_id = 1;
+  optional uint64 photo_id = 2;
+  optional int32 reason = 3;
+  optional int64 time = 4;
+  optional double pftr = 5;
+  optional double pctr = 6;
+  optional double pltr = 7;
+  optional double pwtr = 8;
+}
+
+message RecoUserList {
+  repeated RecoUser users = 1;
+}
